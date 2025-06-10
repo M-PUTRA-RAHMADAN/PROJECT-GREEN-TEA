@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Educational Videos | Eco Living</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+            scroll-behavior: smooth;
+        }
+        
+        /* Mengganti @apply dengan CSS biasa */
+        .filter-button {
+            padding-left: 1rem;
+            padding-right: 1rem;
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 200ms;
+            cursor: pointer;
+        }
+        .filter-button.active {
+            background-color: #059669;
+            color: white;
+        }
+        .filter-button:not(.active) {
+            background-color: #f3f4f6;
+            color: #374151;
+        }
+        .filter-button:not(.active):hover {
+            background-color: #e5e7eb;
+        }
+        .nav-link {
+            padding-left: 0.75rem;
+            padding-right: 0.75rem;
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+            color: #4b5563;
+            font-weight: 500;
+        }
+        .nav-link:hover {
+            color: #059669;
+        }
+        .nav-link.active {
+            color: #059669;
+            border-bottom-width: 2px;
+            border-bottom-color: #059669;
+        }
+        .video-card {
+            background-color: white;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition-property: box-shadow, transform;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 300ms;
+        }
+        .video-card:hover {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            transform: translateY(-4px);
+        }
+        .video-thumbnail {
+            position: relative;
+        }
+        .video-duration {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+        }
+        .video-rating {
+            color: #f59e0b;
+            margin-top: 4px;
+        }
+        .progress-bar {
+            height: 4px;
+            background: #e5e7eb;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .progress-value {
+            height: 100%;
+            background: #10b981;
+        }
+    </style>
+</head>
+<body>
+<div class="min-h-screen bg-[#F3FBF7]">
+    <header class="py-4 px-6 shadow-sm bg-white sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <span class="material-icons text-green-600">eco</span>
+                <h1 class="text-xl font-semibold text-gray-800">Eco Living</h1>
+            </div>
+            <div class="relative flex-1 max-w-md mx-4">
+                <span class="material-icons absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">search</span>
+                <input class="bg-gray-100 rounded-lg py-2 pl-10 pr-4 w-full focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Search videos..." type="text"/>
+            </div>
+            <div class="flex items-center space-x-4">
+                <button class="bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded-lg flex items-center space-x-2 transition-colors duration-200">
+                    <span class="material-icons">add</span>
+                    <span>New Video</span>
+                </button>
+                <button class="text-gray-500 hover:text-green-600 relative">
+                    <span class="material-icons">notifications</span>
+                    <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">3</span>
+                </button>
+                <img alt="User profile" class="w-8 h-8 rounded-full object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80"/>
+            </div>
+        </div>
+    </header>
+    
+    <main class="container mx-auto px-6 py-8">
+        <h2 class="text-3xl font-bold text-gray-800 mb-2">Educational Videos</h2>
+        <p class="text-gray-600 mb-8">Learn about waste reduction, renewable energy, and sustainable living</p>
+        
+        <div class="flex flex-wrap gap-3 mb-8" id="filter-container">
+            <button class="filter-button active" data-filter="all">All</button>
+            <button class="filter-button" data-filter="waste">Waste Reduction</button>
+            <button class="filter-button" data-filter="energy">Renewable Energy</button>
+            <button class="filter-button" data-filter="fashion">Sustainable Fashion</button>
+            <button class="filter-button" data-filter="zerowaste">Zero Waste Lifestyle</button>
+            <button class="filter-button" data-filter="agriculture">Regenerative Agriculture</button>
+            <button class="filter-button" data-filter="economy">Circular Economy</button>
+            <button class="filter-button" data-filter="tech">Green Technology</button>
+        </div>
+        
+        <div class="mb-8 border-b border-gray-200">
+            <nav class="flex -mb-px space-x-4 overflow-x-auto pb-2">
+                <a class="nav-link active" href="#trending">Trending</a>
+                <a class="nav-link" href="#newest">Newest</a>
+                <a class="nav-link" href="#most-viewed">Most Viewed</a>
+                <a class="nav-link" href="#longest">Longest</a>
+            </nav>
+        </div>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="video-container">
+            <!-- Video cards -->
+            <div class="video-card" data-category="waste,zerowaste">
+                <div class="video-thumbnail">
+                    <img alt="DIY Composting Tutorial" class="w-full h-40 object-cover" src="https://images.unsplash.com/photo-1596466596120-2a8e4b5d3d8f?auto=format&fit=crop&w=600&q=80"/>
+                    <div class="video-duration">12:45</div>
+                </div>
+                <div class="p-4">
+                    <h3 class="font-semibold text-gray-800 mb-1">DIY Composting Tutorial</h3>
+                    <div class="flex items-center text-xs text-gray-500 mb-1">
+                        <span>1.2M Views</span>
+                        <span class="mx-2">•</span>
+                        <span>6 months ago</span>
+                    </div>
+                    <div class="video-rating">
+                        <span class="material-icons text-sm">star</span>
+                        <span class="material-icons text-sm">star</span>
+                        <span class="material-icons text-sm">star</span>
+                        <span class="material-icons text-sm">star</span>
+                        <span class="material-icons text-sm">star_half</span>
+                        <span class="text-xs text-gray-600 ml-1">4.7</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Video 2 -->
+            <div class="video-card" data-category="energy,tech">
+                <div class="video-thumbnail">
+                    <img alt="The Future of Solar Power" class="w-full h-40 object-cover" src="https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=600&q=80"/>
+                    <div class="video-duration">18:22</div>
+                </div>
+                <div class="p-4">
+                    <h3 class="font-semibold text-gray-800 mb-1">The Future of Solar Power</h3>
+                    <div class="flex items-center text-xs text-gray-500 mb-1">
+                        <span>550K Views</span>
+                        <span class="mx-2">•</span>
+                        <span>3 weeks ago</span>
+                    </div>
+                    <div class="video-rating">
+                        <span class="material-icons text-sm">star</span>
+                        <span class="material-icons text-sm">star</span>
+                        <span class="material-icons text-sm">star</span>
+                        <span class="material-icons text-sm">star</span>
+                        <span class="material-icons text-sm">star</span>
+                        <span class="text-xs text-gray-600 ml-1">4.9</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Video 3 -->
+            <div class="video-card" data-category="fashion,economy">
+                <div class="video-thumbnail">
+                    <img alt="How to Shop Sustainably" class="w-full h-40 object-cover" src="https://images.unsplash.com/photo-1604176354204-9268737828e4?auto=format&fit=crop&w=600&q=80"/>
+                    <div class="video-duration">9:15</div>
+                </div>
+                <div class="p-4">
+                    <h3 class="font-semibold text-gray-800 mb-1">How to Shop Sustainably</h3>
+                    <div class="flex items-center text-xs text-gray-500 mb-1">
+                        <span>230K Views</span>
+                        <span class="mx-2">•</span>
+                        <span>1 year ago</span>
+                    </div>
+                    <div class="video-rating">
+                        <span class="material-icons text-sm">star</span>
+                        <span class="material-icons text-sm">star</span>
+                        <span class="material-icons text-sm">star</span>
+                        <span class="material-icons text-sm">star</span>
+                        <span class="material-icons text-sm">star_outline</span>
+                        <span class="text-xs text-gray-600 ml-1">4.0</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Video 4 -->
+            <div class="video-card" data-category="zerowaste">
+                <div class="video-thumbnail">
+                    <img alt="Zero Waste Kitchen Hacks" class="w-full h-40 object-cover" src="https://images.unsplash.com/photo-1481931098730-318b6f776db0?auto=format&fit=crop&w=600&q=80"/>
+                    <div class="video-duration">14:30</div>
+                </div>
+                <div class="p-4">
+                    <h3 class="font-semibold text-gray-800 mb-1">Zero Waste Kitchen Hacks</h3>
+                    <div class="flex items-center text-xs text-gray-500 mb-1">
+                        <span>780K Views</span>
+                        <span class="mx-2">•</span>
+                        <span>8 months ago</span>
+                    </div>
+                    <div class="video-rating">
+                        <span class="material-icons text-sm">star</span>
+                        <span class="material-icons text-sm">star</span>
+                        <span class="material-icons text-sm">star</span>
+                        <span class="material-icons text-sm">star</span>
+                        <span class="material-icons text-sm">star_half</span>
+                        <span class="text-xs text-gray-600 ml-1">4.6</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Video 5 -->
+            <div class="video-card" data-category="waste,economy">
+                <div class="video-thumbnail">
+                    <img alt="Documentary: Plastic Pollution Crisis" class="w-full h-40 object-cover" src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=600&q=80"/>
+                    <div class="video-duration">42:18</div>
+                </div>
+                <div class="p-4">
+                    <h3 class="font-semibold text-gray-800 mb-1">Documentary: Plastic Pollution Crisis</h3>
+                    <div class="flex items-center text-xs text-gray-500 mb-1">
+                        <span>2.5M Views</span>
+                        <span class="mx-2">•</span>
+                        <span>1 year ago</span>
+                    </div>
+                    <div class="video-rating">
+                        <span class="material-icons text-sm">star</span>
+                        <span class="material-icons text-sm">star</span>
+                        <span class="material-icons text-sm">star</span>
+                        <span class="material-icons text-sm">star</span>
+                        <span class="material-icons text-sm">star</span>
+                        <span class="text-xs text-gray-600 ml-1">5.0</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Video 6 -->
+            <div class="video-card" data-category="tech,energy">
+                <div class="video-thumbnail">
+                    <img alt="Innovations in Green Transportation" class="w-full h-40 object-cover" src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=600&q=80"/>
+                    <div class="video-duration">22:05</div>
+                </div>
+                <div class="p-4">
+                    <h3 class="font-semibold text-gray-800 mb-1">Innovations in Green Transportation</h3>
+                    <div class="flex items-center text-xs text-gray-500 mb-1">
+                        <span>420K Views</span>
+                        <span class="mx-2">•</span>
+                        <span>5 months ago</span>
+                    </div>
+                    <div class="video-rating">
+                        <span class="material-icons text-sm">star</span>
+                        <span class="material-icons text-sm">star</span>
+                        <span class="material-icons text-sm">star</span>
+                        <span class="material-icons text-sm">star</span>
+                        <span class="material-icons text-sm">star_border</span>
+                        <span class="text-xs text-gray-600 ml-1">4.2</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Video 7 -->
+            <div class="video-card" data-category="waste,zerowaste">
+                <div class="video-thumbnail">
+                    <img alt="Reducing Food Waste at Home" class="w-full h-40 object-cover" src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=600&q=80"/>
+                    <div class="video-duration">10:45</div>
+                </div>
+                <div class="p-4">
+                    <h3 class="font-semibold text-gray-800 mb-1">Reducing Food Waste at Home</h3>
+                    <div class="flex items-center text-xs text-gray-500 mb-1">
+                        <span>890K Views</span>
+                        <span class="mx-2">•</span>
+                        <span>1 year ago</span>
+                    </div>
+                    <div class="video-rating">
+                        <span class="material-icons text-sm">star</span>
+                        <span class="material-icons text-sm">star</span>
+                        <span class="material-icons text-sm">star</span>
+                        <span class="material-icons text-sm">star</span>
+                        <span class="material-icons text-sm">star_half</span>
+                        <span class="text-xs text-gray-600 ml-1">4.7</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Video 8 -->
+            <div class="video-card" data-category="energy,tech">
+                <div class="video-thumbnail">
+                    <img alt="Exploring Renewable Energy Sources" class="w-full h-40 object-cover" src="https://images.unsplash.com/photo-1613665813446-82a78c468a1d?auto=format&fit=crop&w=600&q=80"/>
+                    <div class="video-duration">15:32</div>
+                </div>
+                <div class="p-4">
+                    <h3 class="font-semibold text-gray-800 mb-1">Exploring Renewable Energy Sources</h3>
+                    <div class="flex items-center text-xs text-gray-500 mb-1">
+                        <span>360K Views</span>
+                        <span class="mx-2">•</span>
+                        <span>4 months ago</span>
+                    </div>
+                    <div class="video-rating">
+                        <span class="material-icons text-sm">star</span>
+                        <span class="material-icons text-sm">star</span>
+                        <span class="material-icons text-sm">star</span>
+                        <span class="material-icons text-sm">star</span>
+                        <span class="material-icons text-sm">star_outline</span>
+                        <span class="text-xs text-gray-600 ml-1">4.1</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-12 bg-white rounded-xl p-6 shadow-sm">
+            <h3 class="text-xl font-bold text-gray-800 mb-4">Learning Progress</h3>
+            <div class="space-y-4">
+                <div>
+                    <div class="flex justify-between mb-1">
+                        <span class="font-medium text-gray-700">Waste Reduction</span>
+                        <span class="text-sm text-gray-500">70% Complete</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-value" style="width: 70%"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex justify-between mb-1">
+                        <span class="font-medium text-gray-700">Renewable Energy</span>
+                        <span class="text-sm text-gray-500">45% Complete</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-value" style="width: 45%"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex justify-between mb-1">
+                        <span class="font-medium text-gray-700">Sustainable Fashion</span>
+                        <span class="text-sm text-gray-500">30% Complete</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-value" style="width: 30%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="bg-white border-t mt-12 py-8">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between">
+                <div class="mb-6 md:mb-0">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <span class="material-icons text-green-600">eco</span>
+                        <h2 class="text-xl font-semibold text-gray-800">Eco Living</h2>
+                    </div>
+                    <p class="text-gray-600 max-w-md">
+                        Empowering individuals to live sustainably through education and community.
+                    </p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-8">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Resources</h3>
+                        <ul class="space-y-2">
+                            <li><a class="text-gray-600 hover:text-green-600 transition-colors" href="#">Blog</a></li>
+                            <li><a class="text-gray-600 hover:text-green-600 transition-colors" href="#">Tutorials</a></li>
+                            <li><a class="text-gray-600 hover:text-green-600 transition-colors" href="#">Community</a></li>
+                            <li><a class="text-gray-600 hover:text-green-600 transition-colors" href="#">Events</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Company</h3>
+                        <ul class="space-y-2">
+                            <li><a class="text-gray-600 hover:text-green-600 transition-colors" href="#">About Us</a></li>
+                            <li><a class="text-gray-600 hover:text-green-600 transition-colors" href="#">Careers</a></li>
+                            <li><a class="text-gray-600 hover:text-green-600 transition-colors" href="#">Contact</a></li>
+                            <li><a class="text-gray-600 hover:text-green-600 transition-colors" href="#">Partners</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Legal</h3>
+                        <ul class="space-y-2">
+                            <li><a class="text-gray-600 hover:text-green-600 transition-colors" href="#">Privacy</a></li>
+                            <li><a class="text-gray-600 hover:text-green-600 transition-colors" href="#">Terms</a></li>
+                            <li><a class="text-gray-600 hover:text-green-600 transition-colors" href="#">Cookies</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-200 mt-8 pt-6 text-center text-gray-500 text-sm">
+                © 2023 Eco Living. All rights reserved.
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script>
+    // Filter functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const filterButtons = document.querySelectorAll('.filter-button');
+        const videoCards = document.querySelectorAll('.video-card');
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                const filterValue = button.getAttribute('data-filter');
+                
+                // Show all videos if "All" is selected
+                if (filterValue === 'all') {
+                    videoCards.forEach(card => {
+                        card.style.display = 'block';
+                    });
+                    return;
+                }
+                
+                // Filter videos based on category
+                videoCards.forEach(card => {
+                    const categories = card.getAttribute('data-category').split(',');
+                    if (categories.includes(filterValue)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Tab navigation functionality
+        const navLinks = document.querySelectorAll('.nav-link');
+        
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all links
+                navLinks.forEach(lnk => lnk.classList.remove('active'));
+                
+                // Add active class to clicked link
+                this.classList.add('active');
+                
+                // In a real app, this would load different content
+                // For this demo, we'll just scroll to the section
+                const targetId = this.getAttribute('href').substring(1);
+                document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+        
+        // Video card hover effect enhancement
+        videoCards.forEach(card => {
+            const img = card.querySelector('img');
+            img.style.transition = 'transform 0.3s ease';
+            
+            card.addEventListener('mouseenter', () => {
+                img.style.transform = 'scale(1.05)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                img.style.transform = 'scale(1)';
+            });
+        });
+    });
+</script>
+</body>
+</html>

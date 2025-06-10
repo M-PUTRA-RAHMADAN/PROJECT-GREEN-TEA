@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>GreenLife Community</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7fafc;
+        }
+    </style>
+</head>
+<body class="bg-green-50">
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <span class="material-icons text-green-600 text-3xl mr-2">eco</span>
+                    <span class="font-bold text-xl text-gray-800">GreenLife</span>
+                </div>
+                
+                <!-- Desktop Search Bar -->
+                <div class="hidden md:block flex-1 mx-6 max-w-xl">
+                    <div class="relative flex items-center bg-gray-100 rounded-lg px-3 py-1 border border-transparent hover:border-green-300">
+                        <span class="material-icons text-gray-500">search</span>
+                        <input 
+                            type="text" 
+                            placeholder="Search discussions, guides, events..." 
+                            class="w-full bg-transparent border-none focus:ring-0 py-2 px-3 text-gray-700 placeholder-gray-500 focus:outline-none"
+                            id="desktop-search"
+                        />
+                        <button class="bg-green-500 text-white rounded px-3 py-1 text-sm font-medium hover:bg-green-600 transition">
+                            Search
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a class="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium" href="#">Home</a>
+                        <a class="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium" href="#">Guides</a>
+                        <a class="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium" href="#">Q&amp;A</a>
+                        <a class="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium" href="#">Forum</a>
+                        <a class="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium" href="#">Events</a>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-4 flex items-center md:ml-6 space-x-2">
+                        <a class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg" href="#">Post</a>
+                        <a class="text-gray-700 hover:text-green-600 font-semibold py-2 px-4 rounded-lg border border-gray-300 hover:border-green-500" href="#">Log in</a>
+                    </div>
+                </div>
+                <div class="-mr-2 flex md:hidden">
+                    <button 
+                        id="mobile-menu-button"
+                        aria-controls="mobile-menu" 
+                        aria-expanded="false" 
+                        class="bg-white inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-green-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-500" 
+                        type="button"
+                    >
+                        <span class="sr-only">Open main menu</span>
+                        <span class="material-icons">menu</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu with Search Bar -->
+        <div id="mobile-menu" class="max-h-0 overflow-hidden transition-max-height md:hidden bg-white px-4 pb-4">
+            <div class="search-container mt-2 mb-4 bg-gray-100 rounded-lg px-3 py-1 border border-transparent hover:border-green-300">
+                <div class="flex items-center">
+                    <span class="material-icons text-gray-500">search</span>
+                    <input 
+                        type="text" 
+                        placeholder="Search..." 
+                        class="w-full bg-transparent border-none focus:ring-0 py-2 px-3 text-gray-700 placeholder-gray-500 focus:outline-none"
+                        id="mobile-search"
+                    />
+                </div>
+            </div>
+            <div class="pt-2 pb-3 space-y-1">
+                <a class="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium block" href="#">Home</a>
+                <a class="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium block" href="#">Guides</a>
+                <a class="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium block" href="#">Q&amp;A</a>
+                <a class="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium block" href="#">Forum</a>
+                <a class="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium block" href="#">Events</a>
+            </div>
+            <div class="pt-4 pb-2 border-t border-gray-200">
+                <div class="flex space-x-2">
+                    <a class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg flex-1 text-center" href="#">Post</a>
+                    <a class="text-gray-700 hover:text-green-600 font-semibold py-2 px-4 rounded-lg border border-gray-300 hover:border-green-500 flex-1 text-center" href="#">Log in</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!-- Mobile Search Bar (only visible on mobile) -->
+        <div class="md:hidden mb-8">
+            <div class="bg-gray-100 rounded-lg px-3 py-1 border border-transparent hover:border-green-300">
+                <div class="flex items-center">
+                    <span class="material-icons text-gray-500">search</span>
+                    <input 
+                        type="text" 
+                        placeholder="Search discussions, guides, events..." 
+                        class="w-full bg-transparent border-none focus:ring-0 py-2 px-3 text-gray-700 placeholder-gray-500 focus:outline-none"
+                        id="content-search"
+                    />
+                </div>
+            </div>
+        </div>
+
+        <h1 class="text-3xl font-bold text-gray-800 text-center mb-10">Welcome to the GreenLife Community</h1>
+        
+        <div class="mb-8">
+            <div class="border-b border-gray-200">
+                <nav aria-label="Tabs" class="-mb-px flex space-x-8">
+                    <a class="text-green-600 border-b-2 border-green-600 font-semibold text-sm whitespace-nowrap py-4 px-1" href="#">
+                        All
+                    </a>
+                    <a class="text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm" href="#">
+                        New
+                    </a>
+                    <a class="text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm" href="#">
+                        Unanswered
+                    </a>
+                    <a class="text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm" href="#">
+                        Following
+                    </a>
+                </nav>
+            </div>
+        </div>
+        
+        <div class="grid grid-cols-1 gap-8">
+            <div class="bg-white p-6 rounded-lg shadow">
+                <ul>
+                    <li class="py-4 border-b border-gray-200 last:border-b-0">
+                        <div class="flex items-start space-x-4">
+                            <img alt="User avatar" class="h-10 w-10 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAD4h_eTfY4xaWAeNB44OxFybMLVEfNE3aABKp5XjIBFrqqebrI7uZrY6CH4MePusjxPYr-RYRXzGLE1gKPpQCt9jWVJZJUUvMmtXbh4YwWiEXvXm9T9YXa5zZX_92oDnBj1vwwuhUVHDMuhbl7ysD0RWzhiDYYKEmTGZcSc6UsnoR4ns2C4Ii88oxlEEmMrYqM3_uLK_5EZw958nAqmShoFRWiMbYp9CByBAO-obdHsR3by63AMspX6fuc1ixGm-3JSFOl8zyGGwio" />
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800">Disposing of a Mattress</h3>
+                                <p class="text-gray-600 text-sm">What is the most environmentally friendly way to dispose of a mattress?</p>
+                                <div class="mt-2 flex items-center text-xs text-gray-500">
+                                    <span class="mr-3">#recycling</span>
+                                    <span class="mr-3">#wastemanagement</span>
+                                    <span>23 comments</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="py-4 border-b border-gray-200 last:border-b-0">
+                        <div class="flex items-start space-x-4">
+                            <img alt="User avatar" class="h-10 w-10 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaRU5II505wBw5Srd042Q1KNRHnAih-jZgHoB720d-eCu89aiyA58pF2oUSLaZjnQTJHLW5GPBzM2c5cEMjW0o3FOEy2eig5yb_UFfDgkr2PxPINHA0HUEAdd3Wt3E0UxsnDwqrRv0FD8LQyjpgWjM2BC1qbYHhPJnN52dfQlsYcjUrDnChJdQ6yNs5mcdmvFWDElMtpQUiWPy52Jnbrme2uT9jBcFoCTTZwP3hIEq4QYy6GsvPn8rjmUTJSLZeVL-E3_w4zZxpKt_" />
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800">Sustainable Alternatives to Plastic Packaging</h3>
+                                <p class="text-gray-600 text-sm">What are some sustainable alternatives to plastic packaging?</p>
+                                <div class="mt-2 flex items-center text-xs text-gray-500">
+                                    <span class="mr-3">#packaging</span>
+                                    <span class="mr-3">#zerowaste</span>
+                                    <span>41 comments</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="py-4 border-b border-gray-200 last:border-b-0">
+                        <div class="flex items-start space-x-4">
+                            <img alt="User avatar" class="h-10 w-10 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0Z3TxBFZafSv3r5jsfxvro9m5lEIx1AZwlhE6ZpzJrmUrBnDeDtMgX40ZE2iB-FxFXGxXmQU6rLMDe8dA01J6xVcTsN_nUEIZEVrpNM8pSv5cg1g2vWQQpdd1YHvgMnp6vd4kYlUQ3wJ9y4jBLR6zbh6wpzYgdID1dJ_0BqVzz0UeY4H_wo_n8IX7H4tJjy7x5savqfqXiTn33DXglZM01yWYFvilrUzxD0GRd7ZUl3FWgU01zjQ3I6PrX1lVSCH8iK9QpsJTvW2P" />
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800">Reducing Waste</h3>
+                                <p class="text-gray-600 text-sm">How can I reduce waste in my daily life?</p>
+                                <div class="mt-2 flex items-center text-xs text-gray-500">
+                                    <span class="mr-3">#zerowaste</span>
+                                    <span class="mr-3">#sustainableliving</span>
+                                    <span>67 comments</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="py-4">
+                        <div class="flex items-start space-x-4">
+                            <img alt="User avatar" class="h-10 w-10 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjuxJT4gqZNSmjX3nIUztqoD0qPqiCS9ofCkDAEn3KQuuqqNwiW6vWowImFlm6dLYQFDEBK_CigarDnZAfoLoT5Va99bZFh145E35Zvm0aUfBPldeBjzOYI5EpNVpSsfrwIkBt0b0Q5j_QZyoN0Ko7mDW2b9fvQXUf42v8fKxUSLHmr36LSb_cic_LOS4C4hmlBv_sSEcw4LNmXt34ATa-FxXaXzwMezbY4zAfLshPE3bWyCHBnb6PsBT6JBNO1E5j2tMG51T3TWrZ" />
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800">Carbon Footprint of Meat</h3>
+                                <p class="text-gray-600 text-sm">What is the carbon footprint of different types of meat?</p>
+                                <div class="mt-2 flex items-center text-xs text-gray-500">
+                                    <span class="mr-3">#diet</span>
+                                    <span class="mr-3">#carbonfootprint</span>
+                                    <span>52 comments</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            
+            <div>
+                <h2 class="text-2xl font-semibold text-gray-800 mb-6">Upcoming Events</h2>
+                <div class="space-y-6">
+                    <div class="bg-white p-6 rounded-lg shadow flex items-start space-x-4">
+                        <img alt="Community clean-up event illustration" class="h-20 w-20 object-cover rounded-md" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0G3yZpE8KHoaK1jB1NextEZTeuYrAAtrTzNkh8-JJraFbuSLuNH3Z3WUgZ5rV6msggweazbYCNfcpSEuVo93UX4_Y82UfZl58yGOF7Y0v-irZu069c9UaNE9jpPo6i-gAn-xr5dYiTmpHd5wWmYf_qjk7WjbBEbDDIMpD39G1Gq6RD3EmumbDhzF0Q3ZM7ep6KFylMvJfDa4BKFCsK8Vv6c1c7-VbC50CmMzywGMKeDBuY1VQ6DEil8uGjRjhE8bkscLBURjGui2j" />
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-800">Community Clean-up</h3>
+                            <p class="text-gray-600 text-sm">Join us for a community clean-up event at the local park.</p>
+                            <div class="mt-2 text-xs text-gray-500">
+                                <span class="mr-3">June 15, 2023</span>
+                                <span>Central Park</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow flex items-start space-x-4">
+                        <img alt="Sustainable gardening workshop illustration" class="h-20 w-20 object-cover rounded-md" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRw7OEuUyzoq1o4GX-JkvNgGTI0axYZbuXDWlH71fBYTb1u1RK4GG7RUh4ozQ9xZZ8uetkF3b1UoDnfvlIhPieQ4RcgGQPvv2LK9b_5YUemfiBVmfCcpsBm1aB0xrMXUeIvYN3IHoICniTkdXy-9qOmTnrvkOKVO8gTj_3MzgV7zz7DwR57kfRQTxjluIj7QOmQsGNkXCZD8IAk-iIrY7yIf2RMfJnOmOEI_r3-YYE5nfpzdpeYSZQIvXJOH08mKVNxWQsFuoUu1mU" />
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-800">Sustainable Gardening Workshop</h3>
+                            <p class="text-gray-600 text-sm">Learn about sustainable gardening practices in this free workshop.</p>
+                            <div class="mt-2 text-xs text-gray-500">
+                                <span class="mr-3">June 22, 2023</span>
+                                <span>Community Garden</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow flex items-start space-x-4">
+                        <img alt="Climate action rally illustration" class="h-20 w-20 object-cover rounded-md" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnLvCykoz7dUQK7o98ThehjIvB6YRbBVlYiOYNDDI0J9DgxQB2KFxsAi2G9KQ6CtWRpLcsQICbKDINoGqiNa2zGQUwDyW70oqdKOgggbUP9QhMx7FoKjIS4QsICden2OL_AwvKq35qHyoRzRjqIK1sp_IZ28TdOHUfK7aeurZ2lSGDobxhQwbjnapAbF6OS9q8jEO_5svDdEQmQpJ0YKFEZiYLUA20e0T5COJO9Zr2z9Gxi95RYIDmRLMdjfFqVflNpaEI8pl5Hxfl" />
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-800">Climate Action Rally</h3>
+                            <p class="text-gray-600 text-sm">Participate in a climate action rally to demand policy change.</p>
+                            <div class="mt-2 text-xs text-gray-500">
+                                <span class="mr-3">July 5, 2023</span>
+                                <span>City Hall</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow flex items-start space-x-4">
+                        <img alt="Earth Day festival illustration" class="h-20 w-20 object-cover rounded-md" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDh7SWVszHKH4w4e3JM-mUd_BRHRgvnVUk8xFBZBRCA-hw2ZScUh7m4f0VY0XfKwC-zP3eEomCbgvCoTUF3bbVNVkYiB4smSCdyxHWFcjjce7_5CRZqL6xWqorCp1XjwNm-mYEJaPnL7AopMSiv_DFopKGPzEvlifRuJqChrLjb94ux7TfFw1rYFcbG6IH1Ppqh2GH1gH2pioeHGywa-xcfbBG3C9v6qvtgeEIwAWq37jqUeO1mUR4dJ68aBwNAhrGw_HVvWOzw0-cp" />
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-800">Earth Day Festival</h3>
+                            <p class="text-gray-600 text-sm">Celebrate Earth Day with live music, local food, and eco-friendly vendors.</p>
+                            <div class="mt-2 text-xs text-gray-500">
+                                <span class="mr-3">April 22, 2024</span>
+                                <span>Main Square</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('max-h-0');
+                mobileMenu.classList.toggle('max-h-500');
+            });
+
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target)) {
+                    mobileMenu.classList.remove('max-h-500');
+                    mobileMenu.classList.add('max-h-0');
+                }
+            });
+
+            // Add focus effects to search containers
+            const searchInputs = document.querySelectorAll('input[type="text"]');
+            
+            searchInputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.parentElement.classList.add('bg-white');
+                    this.parentElement.classList.add('shadow');
+                    this.parentElement.classList.add('border-green-300');
+                });
+                
+                input.addEventListener('blur', function() {
+                    this.parentElement.classList.remove('bg-white');
+                    this.parentElement.classList.remove('shadow');
+                    this.parentElement.classList.remove('border-green-300');
+                    this.parentElement.classList.add('bg-gray-100');
+                });
+            });
+
+            // Search functionality
+            document.querySelectorAll('input[type="text"]').forEach(input => {
+                input.addEventListener('keyup', function(e) {
+                    if(e.key === 'Enter' && this.value.trim() !== '') {
+                        alert('Searching for: ' + this.value);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
